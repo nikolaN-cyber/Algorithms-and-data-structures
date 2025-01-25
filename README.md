@@ -7,7 +7,6 @@ This project contains solutions of many tasks related to algorithmic problems. M
 - **`main.cpp`**: Main entrance of applications. Serves as a testing file.
 - **`Solutions.h`**: Header file that contains all function declarations that are implemented at Solutions.cpp.
 - **`Solutions.cpp`**: Source file that contains all function implementations.
-- **`Tasks`**: Folder that contains texts of tasks. All tasks are organized by categories (arrays, strings, graphs...) in separate files.
 - **`Dockerfile`**: Definition of Docker image that allows us to create container that is easier way to run application.
 
 ### Launching the application

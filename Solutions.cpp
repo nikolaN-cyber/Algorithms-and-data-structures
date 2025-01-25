@@ -1,5 +1,6 @@
 #include "Solutions.h"
 #include <algorithm>
+#include <climits>
 
 std::vector<int> Solutions::twoSum(std::vector<int> &nums, int target)
 {
@@ -85,14 +86,153 @@ int Solutions::maxArea(vector<int> &height)
     int left = 0;
     int right = height.size() - 1;
     int maxarea = 0;
-    while (left < right){
-        maxarea = max(maxarea, min(height[left], height[right]) * (right-left));
-        if (height[left] < height[right]){
+    while (left < right)
+    {
+        maxarea = max(maxarea, min(height[left], height[right]) * (right - left));
+        if (height[left] < height[right])
+        {
             left++;
         }
-        else {
+        else
+        {
             right--;
         }
     }
     return maxarea;
+}
+
+int Solutions::threeSumClosest(vector<int> &nums, int target)
+{
+    int closest = INT_MAX;
+    sort(nums.begin(), nums.end());
+    int i;
+    for (i = 0; i < nums.size(); i++)
+    {
+        int left = i + 1;
+        int right = nums.size() - 1;
+        while (left < right)
+        {
+            int currentSum = nums[i] + nums[left] + nums[right];
+            int diff = abs(target - currentSum);
+            if (currentSum == target)
+            {
+                return currentSum;
+            }
+            if (abs(currentSum - target) < abs(closest - target))
+            {
+                closest = currentSum;
+            }
+            else if (currentSum < target)
+            {
+                left++;
+            }
+            else
+            {
+                right--;
+            }
+        }
+    }
+    return closest;
+}
+
+int Solutions::removeDuplicates(vector<int> &nums)
+{
+    int i;
+    int j = 1;
+    for (i = 1; i < nums.size(); i++)
+    {
+        if (nums[i] != nums[i - 1])
+        {
+            nums[j] = nums[i];
+            j++;
+        }
+    }
+    return j;
+}
+
+int Solutions::search(vector<int> &nums, int target)
+{
+    int left = 0;
+    int right = nums.size() - 1;
+
+    while (left <= right)
+    {
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target)
+        {
+            return mid;
+        }
+
+        if (nums[left] <= nums[mid])
+        {
+            if (nums[left] <= target && target < nums[mid])
+            {
+                right = mid - 1;
+            }
+            else
+            {
+                left = mid + 1;
+            }
+        }
+        else
+        {
+            if (nums[mid] < target && target <= nums[right])
+            {
+                left = mid + 1;
+            }
+            else
+            {
+                right = mid - 1;
+            }
+        }
+    }
+
+    return -1;
+}
+
+vector<int> Solutions::plusOne(vector<int> &digits)
+{
+    for (int i = digits.size() - 1; i >= 0; i--)
+    {
+        if (digits[i] != 9)
+        {
+            digits[i] += 1;
+            return digits;
+        }
+        digits[i] = 0;
+        if (i == 0)
+        {
+            digits.insert(digits.begin(), 1);
+            return digits;
+        }
+    }
+    return digits;
+}
+
+int Solutions::missingNumber(vector<int> &nums)
+{
+    int n = nums.size();
+    int sumFirstN = (n * (n + 1)) / 2;
+    int sumArray = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sumArray += nums[i];
+    }
+    int missing = sumFirstN - sumArray;
+    return missing;
+}
+
+void Solution::moveZeroes(vector<int> &nums)
+{
+
+    int k = 0;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (nums[i] != 0)
+        {
+            nums[k++] = nums[i];
+            nums[i] = 0;
+        }
+    }
 }
